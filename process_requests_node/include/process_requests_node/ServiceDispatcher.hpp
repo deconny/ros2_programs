@@ -50,10 +50,10 @@ public:
         }
     }
 
-    template<typename ServiceT, typename RequestT, typename ResponseT>
+    template<typename ServiceT>
     void sendAsyncRequest(const std::string &service_name,
-        std::shared_ptr<RequestT> request,
-        std::function<void(std::shared_ptr<ResponseT>)> callback,
+        std::shared_ptr<typename ServiceT::Request> request,
+        std::function<void(std::shared_ptr<typename ServiceT::Response>)> callback,
         const std::chrono::seconds &timeout = std::chrono::seconds::max())
     {
         registerService<ServiceT>(service_name);
@@ -70,7 +70,7 @@ public:
                 return;
             }
 
-            sendAsyncRequestImpl<ServiceT, RequestT, ResponseT>(client, request, callback, node, service_name, timeout);
+            sendAsyncRequestImpl<ServiceT>(client, request, callback, node, service_name, timeout);
         });
     }
 
@@ -116,10 +116,10 @@ private:
         return true;
     }
 
-    template<typename ServiceT, typename RequestT, typename ResponseT>
+    template<typename ServiceT>
     void sendAsyncRequestImpl(const std::shared_ptr<rclcpp::Client<ServiceT>> &client,
-        const std::shared_ptr<RequestT> &request,
-        const std::function<void(std::shared_ptr<ResponseT>)> &callback,
+        const std::shared_ptr<typename ServiceT::Request> &request,
+        const std::function<void(std::shared_ptr<typename ServiceT::Response>)> &callback,
         const std::shared_ptr<rclcpp::Node> &node,
         const std::string &service_name,
         const std::chrono::seconds &timeout)
