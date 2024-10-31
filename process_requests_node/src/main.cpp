@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     auto request_add_one = std::make_shared<AddTwoIntsService::Request>();
     request_add_one->a = 7;
     request_add_one->b = 5;
-    ServiceDispatcher::instance().sendAsyncRequest<AddTwoIntsService, AddTwoIntsService::Request, AddTwoIntsService::Response>(
+    ServiceDispatcher::instance().sendAsyncRequest<AddTwoIntsService>(
         add_service_name_one,
         request_add_one,
         [node, add_service_name_one](std::shared_ptr<AddTwoIntsService::Response> response) {
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     auto request_add_two = std::make_shared<AddTwoIntsService::Request>();
     request_add_two->a = 11;
     request_add_two->b = 5;
-    ServiceDispatcher::instance().sendAsyncRequest<AddTwoIntsService, AddTwoIntsService::Request, AddTwoIntsService::Response>(
+    ServiceDispatcher::instance().sendAsyncRequest<AddTwoIntsService>(
         add_service_name_two,
         request_add_two,
         [node, add_service_name_two](std::shared_ptr<AddTwoIntsService::Response> response) {
