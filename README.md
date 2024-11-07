@@ -1,1 +1,3 @@
 # ros2_programs
+1、将发送不同类型的request以及对应结果处理的函数统一以task的形式放到线程池中，解决spin_until_future_complete函数引起的this node already in executor
+2、action中的preempt抢断功能的使用
